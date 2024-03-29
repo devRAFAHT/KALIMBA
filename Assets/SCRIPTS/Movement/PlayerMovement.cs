@@ -15,6 +15,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Transform eyeForward;
     [SerializeField] private Vector3 targetRotation;
     [SerializeField] private float smothRotation;
+
+    DialogueSystem dialogueSystem;
+    [SerializeField] public Transform npc;
+
+    private void Awake(){
+        dialogueSystem = FindObjectOfType<DialogueSystem>();
+    }
     private void Start(){
         target=Vector3.zero;
         target.y=transform.position.y;
@@ -61,6 +68,13 @@ public class PlayerMovement : MonoBehaviour
             }
         }
         #endregion
+
+        if(Mathf.Abs(transform.position.x - npc.position.x) < 2.0f){
+            if(Input.GetKeyDown(KeyCode.E)){
+                dialogueSystem.Next();
+            }
+        }
+
     }
     #region MOVEMENT
     private void StartMoving(){
